@@ -474,7 +474,7 @@ oracleSession
 
 		/* start a read-only or "serializable" (= repeatable read) transaction */
 		if (checkerr(
-			OCITransStart(svchp, errhp, (uword)0, OCI_TRANS_SERIALIZABLE),
+			OCITransStart(svchp, errhp, (uword)0, 0), // OCI_TRANS_SERIALIZABLE replaced with READ COMMITED = 0
 			(dvoid *)errhp, OCI_HTYPE_ERROR) != OCI_SUCCESS)
 		{
 			/*
