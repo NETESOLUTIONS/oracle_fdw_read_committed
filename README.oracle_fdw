@@ -1,5 +1,6 @@
 PostgreSQL Foreign Data Wrapper for Oracle with READ COMMITTED isolation level.
 
-Installation and usage instructions are available in the (https://github.com/laurenz/oracle_fdw)[original repo].
+Installation and usage instructions are available in the [original repo](https://github.com/laurenz/oracle_fdw).
 
-See (https://github.com/laurenz/oracle_fdw/issues/250)[Plagued by ORA-08177: can't serialize access for this transaction] for more information.
+See [Plagued by ORA-08177: can't serialize access for this transaction](https://github.com/laurenz/oracle_fdw/issues/250) for more information
+about switch to READ COMMITTED.
