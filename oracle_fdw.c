@@ -603,7 +603,7 @@ oracle_diag(PG_FUNCTION_ARGS)
 	oracleClientVersion(&major, &minor, &update, &patch, &port_patch);
 
 	initStringInfo(&version);
-	appendStringInfo(&version, "oracle_fdw %s, PostgreSQL %s, Oracle client %d.%d.%d.%d.%d", ORACLE_FDW_VERSION, pgversion, major, minor, update, patch, port_patch);
+	appendStringInfo(&version, "oracle_fdw_read_committed %s, PostgreSQL %s, Oracle client %d.%d.%d.%d.%d", ORACLE_FDW_VERSION, pgversion, major, minor, update, patch, port_patch);
 
 	if (PG_ARGISNULL(0))
 	{
