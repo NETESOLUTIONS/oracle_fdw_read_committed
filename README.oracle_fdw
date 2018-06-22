@@ -53,4 +53,32 @@ On a brand new CentOS 7 you can follow this sequence of steps with Postgres 9.6:
 7. Upload to a server and unarchive
 8. <code>sudo make</code>
 9. <code>sudo make install</code>
-10. <code>SQL> CREATE EXTENSION oracle_fdw;</code> 
+10. <code>SQL> CREATE EXTENSION oracle_fdw;</code>
+
+## Testing
+1. Verify that the extension is working
+```PLpgSQL
+-- This should return extension and Oracle client versions
+SELECT oracle_diag();
+```
+
+For example: 
+`oracle_fdw_read_committed 2.0.1, PostgreSQL 9.6.9, Oracle client 12.2.0.1.0, ORACLE_HOME=/usr/lib/oracle/12.2/client64`
+
+2. Create a foreign server
+```PLpgSQL
+CREATE SERVER :server
+  FOREIGN DATA WRAPPER oracle_fdw OPTIONS (dbserver :'EZ_Connect_identifier');
+
+CREATE USER MAPPING FOR :user
+  SERVER :server OPTIONS (USER :'user', PASSWORD :'password');
+```
+
+3. Verify Oracle connection
+```PLpgSQL
+-- Connect to Oracle and return Oracle server version
+SELECT oracle_diag(:'server');
+```
+
+For example:
+`oracle_fdw_read_committed 2.0.1, PostgreSQL 9.6.9, Oracle client 12.2.0.1.0, Oracle server 12.1.0.2.0`
