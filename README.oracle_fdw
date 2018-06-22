@@ -1,6 +1,57 @@
 PostgreSQL Foreign Data Wrapper for Oracle with READ COMMITTED isolation level.
 
-Installation and usage instructions are available in the [original repo](https://github.com/laurenz/oracle_fdw).
+See [Plagued by ORA-08177: can't serialize access for this transaction](https://github.com/laurenz/oracle_fdw/issues/250) 
+for more information about switch to READ COMMITTED.
 
-See [Plagued by ORA-08177: can't serialize access for this transaction](https://github.com/laurenz/oracle_fdw/issues/250) for more information
-about switch to READ COMMITTED.
+Be aware that one PostgreSQL query might cause several Oracle queries (inner side of a nested loop join, several foreign
+tables involved in one query, etc., and these queries need to use SERIALIZED isolation level see a consistent state
+of the database. You might have to simplify your queries by using staging tables.
+    
+## Installation
+* General installation and usage instructions are available in the [original repo](https://github
+.com/laurenz/oracle_fdw).
+
+### CentOS 7
+On a brand new CentOS 7 you can follow this sequence of steps with Postgres 9.6: 
+
+1. Install Postgres 9.6
+  ```Bash
+  sudo yum install -y https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+  sudo yum install -y postgresql96
+  sudo yum install -y postgresql96-server
+  sudo yum install -y postgresql96-contrib
+  
+  # Database cluster = /var/lib/pgsql/9.6/data
+  sudo /usr/pgsql-9.6/bin/postgresql96-setup initdb
+  sudo systemctl enable postgresql-9.6
+  sudo systemctl start postgresql-9.6  
+  ```
+2. Configure Postgres 9.6 (see Postgres 9.6 docs) in   
+3. Install Oracle Instant Client
+  * [Download recommended RPM packages]([http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.htm) 
+    * Basic
+      * *Basic rather than Basic Lite is a dependency of SDK*
+    * SQL*Plus
+      * *Install SQL*Plus to test that Instant Client is functioning correctly.*
+    * SDK
+      * *SDK is required to build some packages from sources*
+  * Install:
+  ```Bash
+  sudo yum install -y *.rpm
+  { cat <<'HEREDOC'
+  #!/usr/bin/env bash
+  export ORACLE_HOME=/usr/lib/oracle/12.2/client64
+  [[ "$PATH" != *"${ORACLE_HOME}/bin"* ]] && export PATH=$PATH:${ORACLE_HOME}/bin
+  HEREDOC
+  } | sudo tee /etc/profile.d/oracle_instant_client.sh
+  echo "/usr/lib/oracle/12.2/client64/lib" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
+  sudo ldconfig
+  ```
+  * Log out and log in again
+4. Install Postgres Development Package: <code>sudo yum install -y postgresql96-devel</code>
+5. Install GNU Compiler Collection: <code>sudo yum install -y gcc</code>
+6. [Download source archive](https://github.com/NETESOLUTIONS/oracle_fdw_read_committed/releases)
+7. Upload to a server and unarchive
+8. <code>sudo make</code>
+9. <code>sudo make install</code>
+10. <code>SQL> CREATE EXTENSION oracle_fdw;</code> 
