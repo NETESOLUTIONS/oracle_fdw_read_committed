@@ -29,11 +29,11 @@ On a brand new CentOS 7 you can follow this sequence of steps with Postgres 9.6:
 3. Install Oracle Instant Client
   * [Download recommended RPM packages](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html)
     * Basic
-      * *Basic rather than Basic Lite is a dependency of SDK*
+      * _Basic rather than Basic Lite is a dependency of SDK_
     * SQL*Plus
-      * *Install SQL*Plus to test that Instant Client is functioning correctly.*
+      * _Install SQL*Plus to test that Instant Client is functioning correctly._
     * SDK
-      * *SDK is required to build some packages from sources*
+      * _SDK is required to build some packages from sources_
   * Install:
   ```Bash
   sudo yum install -y *.rpm
@@ -53,18 +53,15 @@ On a brand new CentOS 7 you can follow this sequence of steps with Postgres 9.6:
 7. Upload to a server and unarchive
 8. <code>sudo make</code>
 9. <code>sudo make install</code>
-10. <code>SQL> CREATE EXTENSION oracle_fdw;</code>
-
-## Testing
-1. Verify that the extension is working
+10. <code>sudo -u postgres psql -c "CREATE EXTENSION oracle_fdw;"</code>
+11. Verify that the extension is installed
 ```PLpgSQL
 -- This should return extension and Oracle client versions
 SELECT oracle_diag();
 ```
-
 A result example: `oracle_fdw_read_committed 2.0.1, PostgreSQL 9.6.9, Oracle client 12.2.0.1.0, ORACLE_HOME=/usr/lib/oracle/12.2/client64`
 
-2. Create a foreign server
+12. Create a foreign server
 ```PLpgSQL
 CREATE SERVER :server
   FOREIGN DATA WRAPPER oracle_fdw OPTIONS (dbserver :'EZ_Connect_identifier');
@@ -73,7 +70,7 @@ CREATE USER MAPPING FOR :user
   SERVER :server OPTIONS (USER :'user', PASSWORD :'password');
 ```
 
-3. Verify Oracle connection
+13. Verify Oracle connection
 ```PLpgSQL
 -- Connect to Oracle and return Oracle server version
 SELECT oracle_diag(:'server');
