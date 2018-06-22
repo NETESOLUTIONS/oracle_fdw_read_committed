@@ -4,7 +4,7 @@ See [Plagued by ORA-08177: can't serialize access for this transaction](https://
 for more information about switch to READ COMMITTED.
 
 Be aware that one PostgreSQL query might cause several Oracle queries (inner side of a nested loop join, several foreign
-tables involved in one query, etc., and these queries need to use SERIALIZED isolation level see a consistent state
+tables involved in one query, etc.), and these queries need to use SERIALIZED isolation level see a consistent state
 of the database. You might have to simplify your queries by using staging tables.
     
 ## Installation
