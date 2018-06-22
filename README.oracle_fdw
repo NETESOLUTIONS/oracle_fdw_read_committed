@@ -25,7 +25,7 @@ On a brand new CentOS 7 you can follow this sequence of steps with Postgres 9.6:
   sudo systemctl enable postgresql-9.6
   sudo systemctl start postgresql-9.6  
   ```
-2. Configure Postgres 9.6 (see Postgres 9.6 docs) in   
+2. Configure Postgres 9.6 (see Postgres 9.6 docs)
 3. Install Oracle Instant Client
   * [Download recommended RPM packages]([http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.htm) 
     * Basic
