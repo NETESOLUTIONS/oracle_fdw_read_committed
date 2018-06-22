@@ -8,8 +8,7 @@ tables involved in one query, etc.), and these queries need to use SERIALIZED is
 of the database. You might have to simplify your queries by using staging tables.
     
 ## Installation
-* General installation and usage instructions are available in the [original repo](https://github
-.com/laurenz/oracle_fdw).
+* General installation and usage instructions are available in the [original repo](https://github.com/laurenz/oracle_fdw)
 
 ### CentOS 7
 On a brand new CentOS 7 you can follow this sequence of steps with Postgres 9.6: 
