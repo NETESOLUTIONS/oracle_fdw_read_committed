@@ -62,8 +62,7 @@ On a brand new CentOS 7 you can follow this sequence of steps with Postgres 9.6:
 SELECT oracle_diag();
 ```
 
-For example: 
-`oracle_fdw_read_committed 2.0.1, PostgreSQL 9.6.9, Oracle client 12.2.0.1.0, ORACLE_HOME=/usr/lib/oracle/12.2/client64`
+A result example: `oracle_fdw_read_committed 2.0.1, PostgreSQL 9.6.9, Oracle client 12.2.0.1.0, ORACLE_HOME=/usr/lib/oracle/12.2/client64`
 
 2. Create a foreign server
 ```PLpgSQL
@@ -80,5 +79,4 @@ CREATE USER MAPPING FOR :user
 SELECT oracle_diag(:'server');
 ```
 
-For example:
-`oracle_fdw_read_committed 2.0.1, PostgreSQL 9.6.9, Oracle client 12.2.0.1.0, Oracle server 12.1.0.2.0`
+A result example: `oracle_fdw_read_committed 2.0.1, PostgreSQL 9.6.9, Oracle client 12.2.0.1.0, Oracle server 12.1.0.2.0`
